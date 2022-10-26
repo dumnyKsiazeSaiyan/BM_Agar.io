@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Food
+  - Border
+  - PowerUp
+  - PowerUp_Speed
   layers:
   - Default
   - TransparentFX

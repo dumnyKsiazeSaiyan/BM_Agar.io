@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public float playerMovementSpeed = 5;
+    
     private void Update()
     {
         Movement();
@@ -12,11 +13,10 @@ public class PlayerController : MonoBehaviour
     }
     void Movement()
     {
-        float playerMovementSpeed = 5;
-        Vector3 directionMove = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        directionMove.z = 0;
+        Vector2 directionMove = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
 
-        transform.transform.position = Vector3.MoveTowards(transform.position, directionMove, playerMovementSpeed * Time.deltaTime / transform.localScale.x);
+        transform.transform.position = Vector3.MoveTowards(transform.position, directionMove, playerMovementSpeed * Time.deltaTime / (transform.localScale.x * 0.9f));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -25,7 +25,12 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale += other.gameObject.transform.localScale;
             Destroy(other.gameObject);
-            Debug.Log("Dzia³a");
+        }
+
+        if (other.gameObject.CompareTag("PowerUp_Speed"))
+        {
+            playerMovementSpeed += 3;
+            Destroy(other.gameObject);
         }
     }
 
